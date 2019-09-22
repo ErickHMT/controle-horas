@@ -5,16 +5,18 @@ import com.apontamento.apontamentohorasapi.model.Projeto;
 import com.apontamento.apontamentohorasapi.model.User;
 import lombok.Data;
 
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.time.LocalTime;
 
 @Data
 public class ApontamentoHorasForm implements Serializable {
 
     @NotNull
-    private LocalDateTime tempo;
+    @Temporal(TemporalType.TIME)
+    private LocalTime tempo;
 
     @NotNull
     private Long projetoId;
@@ -32,17 +34,9 @@ public class ApontamentoHorasForm implements Serializable {
         ApontamentoHoras apontamentoHoras = new ApontamentoHoras();
         apontamentoHoras.setProjeto(projeto);
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-        LocalDateTime localDateTime = LocalDateTime.from(formatter.parse(apontamentoForm.tempo.toString()));
-        System.out.println(localDateTime);
-
-//        apontamentoHoras.setTempo(apontamentoForm.getTempo());
+        apontamentoHoras.setTempo(apontamentoForm.getTempo());
         apontamentoHoras.setUser(user);
 
         return apontamentoHoras;
-    }
-
-    public static void main(String[] args) {
-        System.out.println(LocalDateTime.now());
     }
 }

@@ -4,10 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.joda.time.DateTime;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalTime;
+//import org.joda.time.LocalTime;
 
 @Entity
 @Data
@@ -21,7 +22,7 @@ public class ApontamentoHoras {
     private Long id;
 
     @NotNull
-    private DateTime tempo;
+    private LocalTime tempo;
 
     @ManyToOne
     @NotNull

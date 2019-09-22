@@ -2,8 +2,8 @@ package com.apontamento.apontamentohorasapi.controller.dto;
 
 import com.apontamento.apontamentohorasapi.model.ApontamentoHoras;
 import lombok.Data;
-import org.joda.time.DateTime;
 
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -12,14 +12,17 @@ import java.util.stream.Collectors;
 public class ApontamentoHorasDto {
 
     private Long id;
-    private DateTime tempo;
+    private LocalTime tempo;
+    private UserDto user;
 
     public ApontamentoHorasDto(ApontamentoHoras apontamentoHoras) {
         if(Objects.isNull(apontamentoHoras)){
             return;
         }
         this.id = apontamentoHoras.getId();
+
         this.tempo = apontamentoHoras.getTempo();
+        this.user = new UserDto(apontamentoHoras.getUser());
     }
 
     public static List<ApontamentoHorasDto> from(List<ApontamentoHoras> apontamentoHorasList) {

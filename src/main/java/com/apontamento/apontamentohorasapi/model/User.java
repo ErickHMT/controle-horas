@@ -35,14 +35,10 @@ public class User implements UserDetails {
     private String username;
 
     @NotEmpty
+    private String nome;
+
+    @NotEmpty
     private String password;
-
-//    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
-//    @Fetch(value = FetchMode.SUBSELECT)
-//    private List<ApontamentoHoras> projetos;
-
-//    @ManyToMany
-//    private List<Projeto> projetos;
 
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>();
