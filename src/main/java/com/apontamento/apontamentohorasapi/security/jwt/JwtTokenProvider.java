@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
@@ -19,7 +18,7 @@ import java.util.List;
 @Component
 public class JwtTokenProvider {
 
-    public static final long tokenValidity = 3600000L; //1h
+     public static final long tokenValidity = 86400000L; //24h
 
     @Qualifier("customUserDetailsService")
     @Autowired
