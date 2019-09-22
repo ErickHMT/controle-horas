@@ -1,6 +1,6 @@
 package com.apontamento.apontamentohorasapi.controller;
 
-import com.apontamento.apontamentohorasapi.model.AuthenticationRequest;
+import com.apontamento.apontamentohorasapi.controller.form.LoginForm;
 import com.apontamento.apontamentohorasapi.repository.UserRepository;
 import com.apontamento.apontamentohorasapi.security.jwt.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,11 +9,9 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,6 +19,7 @@ import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
 @RequestMapping(value = "/auth")
+@CrossOrigin(origins = "*")
 public class AuthenticationController {
 
     @Autowired
@@ -33,7 +32,7 @@ public class AuthenticationController {
     UserRepository users;
 
     @PostMapping("/signin")
-    public ResponseEntity signin(@RequestBody AuthenticationRequest data) {
+    public ResponseEntity signin(@RequestBody @Valid LoginForm data) {
 
         try {
             String username = data.getUsername();
