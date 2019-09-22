@@ -37,9 +37,12 @@ public class User implements UserDetails {
     @NotEmpty
     private String password;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
-    @Fetch(value = FetchMode.SUBSELECT)
-    private List<ApontamentoHoras> projetos;
+//    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+//    @Fetch(value = FetchMode.SUBSELECT)
+//    private List<ApontamentoHoras> projetos;
+
+//    @ManyToMany
+//    private List<Projeto> projetos;
 
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>();
@@ -47,6 +50,11 @@ public class User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.roles.stream().map(SimpleGrantedAuthority::new).collect(toList());
+    }
+
+    public boolean isAdmin() {
+        List<String> roles = getRoles();
+        return roles.isEmpty() ? false : roles.contains("ROLE_ADMIN");
     }
 
     @Override

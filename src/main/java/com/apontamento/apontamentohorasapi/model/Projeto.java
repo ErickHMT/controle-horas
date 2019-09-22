@@ -10,6 +10,7 @@ import org.hibernate.annotations.FetchMode;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -28,4 +29,11 @@ public class Projeto {
     @OneToMany(mappedBy = "projeto", fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
     private List<ApontamentoHoras> apontamentoHoras;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "projeto_user",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "projeto_id"))
+    private Set<User> users;
 }
