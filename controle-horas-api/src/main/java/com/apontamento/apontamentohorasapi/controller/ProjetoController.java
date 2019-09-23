@@ -20,14 +20,14 @@ public class ProjetoController {
     @Autowired
     private ProjetoService projetoService;
 
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     public ResponseEntity findAll() {
         List<Projeto> projetos = this.projetoService.findAll();
         return ok(ProjetoDto.from(projetos));
     }
 
-    @PreAuthorize("hasRole('USER')")
+//    @PreAuthorize("hasRole('USER')")
     @GetMapping("/user/{userId}")
     public ResponseEntity getProjetosByUserId(@PathVariable("userId") Long userId) {
         List<Projeto> projetos = this.projetoService.getProjetosByUserId(userId);

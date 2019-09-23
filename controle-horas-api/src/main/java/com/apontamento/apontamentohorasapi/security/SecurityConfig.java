@@ -25,15 +25,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        // TODO Corrigir permissões de acesso a API
         http.httpBasic().disable()
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
                 .antMatchers("/auth/signin").permitAll()
-//                .antMatchers(HttpMethod.GET, "/projetos/**").permitAll()
+//                .antMatchers(HttpMethod.GET, "/projetos/user/*").permitAll()
 //                .antMatchers(HttpMethod.DELETE, "/projetos/**").hasRole("ROLE_ADMIN")
-                .antMatchers(HttpMethod.GET, "/projetos").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/projetos").permitAll()
+                .antMatchers(HttpMethod.POST, "/apontamento-horas").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .apply(new JwtSecurityConfigurer(jwtTokenProvider));

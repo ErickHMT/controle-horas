@@ -1,6 +1,7 @@
 package com.apontamento.apontamentohorasapi.controller;
 
 import com.apontamento.apontamentohorasapi.controller.form.LoginForm;
+import com.apontamento.apontamentohorasapi.model.User;
 import com.apontamento.apontamentohorasapi.repository.UserRepository;
 import com.apontamento.apontamentohorasapi.security.jwt.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import static org.springframework.http.ResponseEntity.ok;
 
@@ -37,10 +39,12 @@ public class AuthenticationController {
         try {
             String username = data.getUsername();
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, data.getPassword()));
-            String token = jwtTokenProvider.createToken(username, this.users.findByUsername(username)
+            Optional<User> usuario = this.users.findByUsername(username);
+            String token = jwtTokenProvider.createToken(username, usuario
                     .orElseThrow(() -> new UsernameNotFoundException("Username " + username + "not found")).getRoles());
 
             Map<Object, Object> model = new HashMap<>();
+            model.put("id", usuario.get().getId());
             model.put("username", username);
             model.put("token", token);
             return ok(model);

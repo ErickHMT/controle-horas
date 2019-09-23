@@ -1,9 +1,0 @@
-version: '3.7'
-
-services:
-  app-server:
-    build:
-      context: apontamento-horas-api
-      dockerfile: Dockerfile
-    ports:
-      - "8080:8080"
